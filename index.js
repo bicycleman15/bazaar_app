@@ -321,7 +321,7 @@ function escapeRegex(text) {
 
 //==============================
 
-x.listen(3000,function(){
+x.listen(process.env.PORT,process.env.IP,function(){
     console.log("server has started");
 });
 
