@@ -1,0 +1,57 @@
+<!-- include this -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <!-- include this -->
+
+<!-- nav bar ok working on all pages--> 
+  <div class="ui menu">
+    <a href="/" class="item">Home</a>
+    <a href="/products" class="item">Products</a>
+    <div class="right menu">
+      <%if(!currentUser){%>
+      <div class="item">
+        <a href="/register" class="ui primary button"><i class="address book icon"></i>Sign Up</a>
+      </div>
+
+      <div class="item">
+        <a href="/login" class="ui primary button">Login</a>
+      </div>
+      <%} else {%>
+      <div class="item">
+        <a href="users/<%=currentUser._id%>" class="ui button"><i class="user outline icon"></i><%=currentUser.username%></a>
+      </div>
+      <div class="item">
+        <a href="/logout" class="ui primary button">Logout</a>
+      </div>
+      <%}%>
+
+      <%if(currentUser && currentUser.isadmin){%>
+      <div class="item active">
+        <div><a href="/admin" class="ui button">View Admin Page</a></div>
+      </div>
+    <%}%>
+    </div>
+  </div>  
+<!-- nav bar -->
+<h1>This is the admin page</h1>
+
+<%for(var i=0;i<products.length;i++){%>
+    <div>
+        <%=products[i].sellername%> has put up on sale <a href="/products/<%=products[i]._id%>"><%=products[i].name%></a>
+        <form action="/products/<%=products[i]._id%>/edit?_method=PUT" method="POST">
+            <%if(products[i].isflagged){%>
+            <input type="submit" value="Un-Flag the item"/>
+            <%} else {%>
+                <input type="submit" value="Flag the item"/>
+                <%}%>
+                
+        </form>
+        <form action="/products/<%=products[i]._id%>?_method=DELETE" method="POST">
+            
+            <input type="submit" value="Click Here to remove<%=products[i].name%>">
+        </form>
+    </div>
+    <%}%>
+    
+<a href="/admin/recenttrans">Click here to see recent transactions!!</a>  
+<a href="/admin/viewusers">Click to see the users</a>

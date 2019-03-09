@@ -1,0 +1,37 @@
+<!-- include this -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <!-- include this -->
+
+<!-- nav bar ok working on all pages--> 
+  <div class="ui menu">
+    <a href="/" class="item">Home</a>
+    <a href="/products" class="item active">Products</a>
+    <div class="right menu">
+      <%if(!currentUser){%>
+      <div class="item">
+        <a href="/register" class="ui primary button"><i class="address book icon"></i>Sign Up</a>
+      </div>
+
+      <div class="item">
+        <a href="/login" class="ui primary button">Login</a>
+      </div>
+      <%} else {%>
+      <div class="item">
+        <a href="users/<%=currentUser._id%>" class="ui button"><i class="user outline icon"></i><%=currentUser.username%></a>
+      </div>
+      <div class="item">
+        <a href="/logout" class="ui primary button">Logout</a>
+      </div>
+      <%}%>
+
+      <%if(currentUser && currentUser.isadmin){%>
+      <div class="item">
+        <div><a href="/admin" class="ui button">View Admin Page</a></div>
+      </div>
+    <%}%>
+    </div>
+  </div>  
+<!-- nav bar -->
+<h1>Your purchase completed successfully</h1>
+<a class="ui button" href="/products">Click here to go to products catalog</a>

@@ -1,0 +1,70 @@
+<!-- include this -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <!-- include this -->
+
+<!-- nav bar ok working on all pages--> 
+  <div class="ui menu">
+    <a href="/" class="item">Home</a>
+    <a href="/products" class="item active">Products</a>
+    <div class="right menu">
+      
+      <%if(!currentUser){%>
+      <div class="item">
+        <a href="/register" class="ui primary button"><i class="address book icon"></i>Sign Up</a>
+      </div>
+
+      <div class="item">
+        <a href="/login" class="ui primary button">Login</a>
+      </div>
+      <%} else {%>
+      <div class="item">
+        <a href="users/<%=currentUser._id%>" class="ui button"><i class="user outline icon"></i><%=currentUser.username%></a>
+      </div>
+      <div class="item">
+        <a href="/logout" class="ui primary button">Logout</a>
+      </div>
+      <%}%>
+
+      <%if(currentUser && currentUser.isadmin){%>
+      <div class="item">
+        <div><a href="/admin" class="ui button">View Admin Page</a></div>
+      </div>
+    <%}%>
+    </div>
+  </div>  
+<!-- nav bar -->
+
+<div class="ui container"><a href="/products/new" class="ui button">Click to create new product</a>
+
+  <p>
+    <form action="/products" method="GET">
+    <div class="ui form">
+  <div class="field">
+    
+    <input type="text" name="search" placeholder="Search Products...">
+  </div>
+  
+</div>
+<input class="ui button" type="submit" value="Search">
+
+  </form>
+  </p>
+
+
+<div class="ui three column divided grid"> 
+  <div class="row"> 
+
+    <%for(var i=0;i<products.length;i++){%>
+      <%if(!products[i].isflagged){%>
+      <div class="column">
+      <h3><%= products[i].name %> </h3>
+       <img class="ui medium bordered image" src="<%=products[i].image%>">
+       <p>Price:<%=products[i].price%></p>
+       <h5><%=products[i].type%></h5>
+       <a  class="ui button" href="/products/<%=products[i]._id%>">View More</a>
+       </div>
+    <%}}%>
+    </div>
+</div>
+</div>
