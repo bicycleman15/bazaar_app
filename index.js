@@ -2,7 +2,8 @@ var x=require("express")();
 var bodyparser=require("body-parser")
 x.use(bodyparser.urlencoded({extended:true}))
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/bazaar',{ useNewUrlParser: true });
+mongoose.connect('mongodb+srv://jatin:jatin@cluster0-gr5q3.mongodb.net/bazaar?retryWrites=true',{ useNewUrlParser: true });
+
 var product=require("./models/product");
 var user=require("./models/users")
 var passport=require("passport");
